@@ -42,11 +42,8 @@
 
 实时反馈群聊：
 
-<picture>
-  <img alt="WX" src="https://user-images.githubusercontent.com/77969791/191534581-ccc2f7ca-6440-4040-9a42-241fe7781da2.jpg">
-</picture>
 
-
+![微信图片_20220921181155](https://user-images.githubusercontent.com/77969791/191535747-17143058-778d-472d-866d-87e704a78340.jpg)
 
 
 ## :warning: 免责声明  
