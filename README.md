@@ -42,9 +42,7 @@
 
 实时反馈群聊：
 
-
-![微信图片_20220921224645](https://user-images.githubusercontent.com/77969791/191536263-eb784eb7-095d-44ab-9048-c9aed45c7790.jpg)
-
+    自行查看链接： https://user-images.githubusercontent.com/77969791/191536263-eb784eb7-095d-44ab-9048-c9aed45c7790.jpg
 
 
 ## :warning: 免责声明  
