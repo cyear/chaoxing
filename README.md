@@ -42,7 +42,10 @@
 
 实时反馈群聊：
 
-    ![微信图片_20220921181155](https://user-images.githubusercontent.com/77969791/191478830-b581410c-1db6-4f85-abc2-dc2694ba03a6.jpg)
+<picture>
+  <img alt="WX" src="https://user-images.githubusercontent.com/77969791/191534581-ccc2f7ca-6440-4040-9a42-241fe7781da2.jpg">
+</picture>
+
 
 
 
