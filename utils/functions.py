@@ -23,7 +23,7 @@ def title_show(logo):
         print("\n" + "-"*120)
     else:
         print("\n")
-    print("欢迎使用cyear/chaoxing\n对代码有任何疑问或建议，请前往github进行反馈")
+    print("欢迎使用cyear/chaoxing\n对代码有任何疑问或建议，请前往github/wx进行反馈")
     print("如果喜欢这个项目，请给我的repo一个小小的Star，谢谢\n")
 
 
@@ -208,18 +208,19 @@ def sec2time(sec):
 
 def show_progress(name, current, total):
     percent = int(current / total * 100)
+    percent = 100 if percent > 100 else percent
     length = int(percent * 40 // 100)
     progress = ("#" * length).ljust(40, " ")
     remain = (total - current)
-    if current >= total and remain < 1:
+    if (current == total) and (0 <= remain < 1):
+        #print(percent, length, current, total, remain)
         print("\r" + f"当前任务： {name} 已完成".ljust(100, " "))
     else:
-        # print("\r" + f"当前任务： {name} 剩余时间：{sec2time(remain / speed)} |{progress}| {percent}%  {sec2time(current)}/{sec2time(total)}", end="", flush=True)
-        print("\r" + f"当前任务： {name} |{progress}| {percent}%  {sec2time(current)}/{sec2time(total)}     ", end="", flush=True)
+          print("\r" + f"当前任务： {name} |{progress}| {percent}%  {sec2time(current)}/{sec2time(total)}     ", end="", flush=True)
 
 
 def pause(start: int, end: int):
     __temp = random.randint(start, end)
-    print(f"等待{__temp}秒")
+    print(f"Please wait for {__temp}s")
     time.sleep(__temp)
     return True

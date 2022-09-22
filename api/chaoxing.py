@@ -169,7 +169,7 @@ class Chaoxing:
         try:
             d_token = d_token_raw.json()
         except json.JSONDecoder or json.decoder.JSONDecodeError:
-            self.logger.debug("出现JSONDecoder异常，正在跳过当前任务")
+            self.logger.debug("JSONDecoder异常，正在跳过当前任务")
             d_token = None
         return d_token
 
@@ -196,6 +196,7 @@ class Chaoxing:
         url = 'https://mooc1-api.chaoxing.com/multimedia/log/a/{}/{}'.format(personid, dtoken)
         # print(url)
         otherInfo, courseId = otherInfo.split("&")
+        courseId = courseId.split("=")[-1]
         params = {
             'otherInfo': otherInfo,
             'playingTime': playingTime,
@@ -208,7 +209,8 @@ class Chaoxing:
             'userid': userid,
             'isdrag': 2,
             'enc': self.get_enc(clazzId, jobid, objectId, playingTime, duration, userid),
-            'rt': '0.9',  # 'rt': '1.0',  ??
+            # 'rt': '0.9',  
+            'rt': '1.0',
             'dtype': 'Video',
             'view': 'json',
             'courseId': courseId,
@@ -253,9 +255,7 @@ class Chaoxing:
                     show_progress(name, video_duration, video_duration)
                     break
                 elif res.get('error'):
-                    self.logger.debug("---result info begin---")
-                    self.logger.debug(res.get)
-                    self.logger.debug("---result info end---")
+                    self.logger.error(res)
                     raise Exception('出现错误')
                 continue
             show_progress(name, playingTime, video_duration)
