@@ -216,7 +216,7 @@ def show_progress(name, current, total):
         #print(percent, length, current, total, remain)
         print("\r" + f"当前任务： {name} 已完成".ljust(100, " "))
     else:
-          print("\r" + f"当前任务： {name} |{progress}| {percent}%  {sec2time(current)}/{sec2time(total)}     ", end="", flush=True)
+        print("\r" + f"当前任务： {name} |{progress}| {percent}%  {sec2time(current)}/{sec2time(total)}     ", end="", flush=True)
 
 
 def pause(start: int, end: int):

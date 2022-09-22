@@ -89,16 +89,19 @@ class Chaoxing:
     def get_all_courses(self):
         url = 'https://mooc1-api.chaoxing.com/mycourse/backclazzdata?view=json&mcode='
         courses = self.session.get(url).json()
-        if courses["result"] == 1:  # 假如返回值为1
-            __temp = courses["channelList"]
-            for course in __temp:   # 删除所有的自建课程
-                if "course" not in course['content']:
-                    __temp.remove(course)
-            self.courses = __temp
-            return True
-        else:
-            self.logger.error("无法获取相关课程数据")
-            return False
+        try:
+            if courses["result"] == 1:  # 假如返回值为1
+                __temp = courses["channelList"]
+                for course in __temp:   # 删除所有的自建课程
+                    if "course" not in course['content']:
+                        __temp.remove(course)
+                self.courses = __temp
+                return True
+            else:
+                self.logger.error("无法获取相关课程数据")
+                return False
+        except:
+            print(courses)
 
     def select_course(self):
         pretty_print(self.courses)
@@ -192,7 +195,7 @@ class Chaoxing:
             self.logger.debug(resp.text)
             self.logger.debug("---resp.text info end---")
 
-    def main_pass_video(self, personid, dtoken, otherInfo, playingTime, clazzId, duration, jobid, objectId, userid, _tsp):
+    def main_pass_video(self, personid, dtoken, otherInfo, playingTime, clazzId, duration, jobid, objectId, userid, _tsp, dtype='Video', isdrag=2):
         url = 'https://mooc1-api.chaoxing.com/multimedia/log/a/{}/{}'.format(personid, dtoken)
         # print(url)
         otherInfo, courseId = otherInfo.split("&")
@@ -207,11 +210,11 @@ class Chaoxing:
             'clazzId': clazzId,
             'objectId': objectId,
             'userid': userid,
-            'isdrag': 2,
+            'isdrag': isdrag,
             'enc': self.get_enc(clazzId, jobid, objectId, playingTime, duration, userid),
-            # 'rt': '0.9',  
-            'rt': '1.0',
-            'dtype': 'Video',
+            'rt': '0.9',  
+            #'rt': '1.0',
+            'dtype': dtype,
             'view': 'json',
             'courseId': courseId,
             # '_t': _tsp
@@ -231,7 +234,7 @@ class Chaoxing:
             print("-" * 10)
             print(params)
 
-    def pass_video(self, video_duration, cpi, dtoken, otherInfo, clazzid, jobid, objectid, userid, name, speed, _tsp):
+    def pass_video(self, video_duration, cpi, dtoken, otherInfo, clazzid, jobid, objectid, userid, name, speed, _tsp, dtype='Video', isdrag=2):
         sec = 58
         playingTime = 0
         print("当前播放速率："+str(speed)+"倍速")
@@ -248,7 +251,9 @@ class Chaoxing:
                     jobid,
                     objectid,
                     userid,
-                    _tsp
+                    _tsp,
+                    dtype=dtype,
+                    isdrag=isdrag
                 )
                 # print(res)
                 if res.get('isPassed'):
@@ -279,5 +284,4 @@ class Chaoxing:
         #print(params)
         res = self.session.get(url, params=params)
         print(res.json()['msg'])
-
 
