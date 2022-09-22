@@ -3,7 +3,7 @@ import argparse
 import utils.functions as ft
 from api.chaoxing import Chaoxing
 
-work(chaoxingAPI):
+def do_work(chaoxingAPI):
     #print(chaoxingAPI.selected_course)
     re_login_try = 0
     # done = list(ft.load_finished(chaoxingAPI.usernm))
