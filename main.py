@@ -47,8 +47,8 @@ def do_work(chaoxingAPI):
                 continue
             print(f'\n当前章节：{mission["label"]}:{mission["name"]}')
             for attachment in attachments['attachments']:
+                #print(attachment)
                 if attachment.get('type') != 'video': # 非视频任务跳过
-                    #print(attachment)
                     if attachment.get('type') != 'document':
                         print("pass video and document")
                         continue
@@ -88,6 +88,62 @@ def do_work(chaoxingAPI):
                         jobid
                     )
                     continue
+                if attachment['property']['type'] == '.wav':
+                    try:
+                        video_info = chaoxingAPI.get_d_token(
+                            attachment['objectid'],
+                            attachments['defaults']['fid']
+                        )
+                    except:
+                        #print(attachment)
+                        logger.warn("出现了一个可修复问题")
+                    try:
+                        video_info = chaoxingAPI.get_d_token(
+                            attachment['property']['objectid'],
+                            attachments['defaults']['fid']
+                        )
+                    except:
+                        logger.error(attachments)
+                        logger.error("致命问题: code 112-107")
+                    if not video_info:
+                        continue
+                    jobid = None
+                    if "jobid" in attachments:
+                        jobid = attachments["jobid"]
+                    else: 
+                        if "jobid" in attachment:
+                            jobid = attachment["jobid"]
+                        else:
+                            if "jobid" in attachment['property']:
+                                jobid = attachment['property']['jobid']
+                            else:
+                                if "'_jobid'" in attachment['property']:
+                                    jobid = attachment['property']['_jobid']
+                    if not jobid:
+                        print("未找到jobid，已跳过当前任务点")
+                        continue
+                    if attachment.get('isPassed'):
+                        print("当前音频任务已完成")
+                        ft.show_progress(attachment['property']['name'], 1, 1)
+                        time.sleep(1)
+                        continue
+                    chaoxingAPI.pass_video(
+                        video_info['duration'],
+                        attachments['defaults']['cpi'],
+                        video_info['dtoken'],
+                        attachment['otherInfo'],
+                        chaoxingAPI.selected_course['key'],
+                        attachment['jobid'],
+                        video_info['objectid'],
+                        chaoxingAPI.uid,
+                        attachment['property']['name'],
+                        chaoxingAPI.speed,
+                        chaoxingAPI.get_current_ms,
+                        dtype='Audio',
+                        isdrag=3
+                    )
+                    continue
+                
                 print(f"\n当前视频：{attachment['property']['name']}")
                 if attachment.get('isPassed'):
                     print("当前视频任务已完成")
@@ -161,8 +217,8 @@ if __name__ == '__main__':
         print("\n------v0.1.2209.1.Beta.2------\n")
         input("Enter to exit the program> > > ")
         sys.exit()
-    try:
-        #if 1:
+    #try:
+    if 1:
         ft.init_all_path(["saves", "logs"])  # 检查文件夹
         logger = ft.Logger("main",debug,show)  # 初始化日志类
         if debug:
@@ -194,9 +250,10 @@ if __name__ == '__main__':
                     logger.info("开始学习")
                     do_work(chaoxing)   # 开始学习
         input("任务已结束，请点击回车键退出程序")
-    except Exception as e:
+    '''except Exception as e:
         print(f"出现报错{e.__class__}")
         print(f"错误文件名：{e.__traceback__.tb_frame.f_globals['__file__']}")
         print(f"错误行数：{e.__traceback__.tb_lineno}")
         print(f"错误原因:{e}")
         input("请截图提交至Github或QQ供作者修改代码\n点击回车键退出程序")
+    '''
