@@ -55,7 +55,7 @@ class Chaoxing:
         url = "https://passport2.chaoxing.com/fanyalogin"
         des_obj = des("u2oh6Vu^", "u2oh6Vu^", pad=None, padmode=PAD_PKCS5)
         secret_bytes = des_obj.encrypt(self.passwd, padmode=PAD_PKCS5)
-        print(binascii.b2a_hex(secret_bytes).decode("utf-8"))
+        #print(binascii.b2a_hex(secret_bytes).decode("utf-8"))
         data = {"fid": "-1",
                 "uname": self.usernm,
                 "password": binascii.b2a_hex(secret_bytes).decode("utf-8"),

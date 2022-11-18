@@ -23,7 +23,7 @@ def title_show(logo):
         print("\n" + "-"*120)
     else:
         print("\n")
-    print("欢迎使用cyear/chaoxing\n对代码有任何疑问或建议，请前往github/wx进行反馈")
+    print("欢迎使用cyear/chaoxing/冫氵丶面包\n对代码有任何疑问或建议，请前往github/QQ群556766602进行反馈")
     print("如果喜欢这个项目，请给我的repo一个小小的Star，谢谢\n")
 
 
@@ -136,7 +136,7 @@ def load_users(hide):
         usernm = input("请输入手机号: ")
         if hide:
             sec_user = "%s****%s"%(usernm[:3],usernm[7:])
-            passwd = passwd = maskpass.askpass(prompt="请输入密码(已自动隐藏): ", mask="#")
+            passwd = getpass.getpass("密码: : ")
         else:
             sec_user = usernm
             passwd = input("请输入密码: ")
