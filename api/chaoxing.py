@@ -141,7 +141,7 @@ class Chaoxing:
         return self.session.get(url, params=params).json()
 
     def get_knowledge(self, clazzid, courseid, knowledgeid, num):
-        url = 'https://mooc1.chaoxing.com/knowledge/cards'
+        url = 'https://mooc1-api.chaoxing.com/knowledge/cards'
         params = {
             'clazzid': clazzid,
             'courseid': courseid,

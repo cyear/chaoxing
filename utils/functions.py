@@ -1,8 +1,8 @@
 import json
 import logging
 import os
-import time
-import maskpass
+import time, getpass
+#import maskpass
 from hashlib import md5
 from os import mkdir
 from os.path import exists
@@ -122,7 +122,7 @@ def load_users(hide):
             usernm = input("请输入手机号: ")
             if hide:
                 sec_user = "%s****%s"%(usernm[:3],usernm[7:])
-                passwd = maskpass.askpass(prompt="请输入密码(已自动隐藏): ", mask="#")
+                passwd = getpass.getpass("密码: : ")
             else:
                 sec_user = usernm
                 passwd = input("请输入密码: ")

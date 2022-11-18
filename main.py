@@ -220,8 +220,8 @@ if __name__ == '__main__':
         print("\n------v0.1.2209.1.Beta.2------\n")
         input("Enter to exit the program> > > ")
         sys.exit()
-    #try:
-    if 1:
+    try:
+    #if 1:
         ft.init_all_path(["saves", "logs"])  # 检查文件夹
         logger = ft.Logger("main",debug,show)  # 初始化日志类
         if debug:
@@ -253,10 +253,10 @@ if __name__ == '__main__':
                     logger.info("开始学习")
                     do_work(chaoxing)   # 开始学习
         input("任务已结束，请点击回车键退出程序")
-    '''except Exception as e:
+    except Exception as e:
         print(f"出现报错{e.__class__}")
         print(f"错误文件名：{e.__traceback__.tb_frame.f_globals['__file__']}")
         print(f"错误行数：{e.__traceback__.tb_lineno}")
         print(f"错误原因:{e}")
         input("请截图提交至Github或QQ供作者修改代码\n点击回车键退出程序")
-    '''
+    
