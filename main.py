@@ -31,16 +31,19 @@ def do_work(chaoxingAPI):
                 logger.error("章节数据错误,可能是课程存在验证码,重新登录尝试无效")
                 input("请截图并携带日志提交Issue反馈")
         re_login_try = 0
-        tabs = len(knowledge_raw['data'][0]['card']['data'])
+        logger.debug(knowledge_raw)
+        tabs = len(knowledge_raw['data'][0]['card']['data']) #card
         for tab_index in range(tabs):
-            #print("开始读取标签信息")
+            print("开始读取标签信息")
             knowledge_card_text = chaoxingAPI.get_knowledge(
                 chaoxingAPI.selected_course['key'],
                 chaoxingAPI.selected_course['content']['course']['data'][0]['id'],
                 mission["id"],
                 tab_index
             )
+            logger.debug(knowledge_card_text)
             attachments: dict = chaoxingAPI.get_attachments(knowledge_card_text)
+            logger.debug(attachments)
             if not attachments:
                 continue
             if not attachments.get('attachments'):

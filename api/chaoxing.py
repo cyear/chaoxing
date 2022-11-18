@@ -34,6 +34,7 @@ class Chaoxing:
         self.session = requests.session()
         self.session.headers = {
             'User-Agent': f'Dalvik/2.1.0 (Linux; U; Android {random.randint(9, 12)}; MI{random.randint(10, 12)} Build/SKQ1.210216.001) (device:MI{random.randint(10, 12)}) Language/zh_CN com.chaoxing.mobile/ChaoXingStudy_3_5.1.4_android_phone_614_74 (@Kalimdor)_{secrets.token_hex(16)}',
+          #  'User-Agent': f'Dalvik/2.1.0 (Linux; U; Android 12; MI{random.randint(10, 12)} Build/SQ3A.220905.001) (schild:d92f2091eb12d848eb10fbe3897d5a07) (device:MI{random.randint(10, 12)}) Language/zh_CN_#Hans com.chaoxing.mobile/ChaoXingStudy_3_6.0.7_android_phone_901_99 (@Kalimdor)_{secrets.token_hex(16)}',
             'X-Requested-With': 'com.chaoxing.mobile'
         }
 
@@ -54,6 +55,7 @@ class Chaoxing:
         url = "https://passport2.chaoxing.com/fanyalogin"
         des_obj = des("u2oh6Vu^", "u2oh6Vu^", pad=None, padmode=PAD_PKCS5)
         secret_bytes = des_obj.encrypt(self.passwd, padmode=PAD_PKCS5)
+        print(binascii.b2a_hex(secret_bytes).decode("utf-8"))
         data = {"fid": "-1",
                 "uname": self.usernm,
                 "password": binascii.b2a_hex(secret_bytes).decode("utf-8"),
@@ -98,7 +100,7 @@ class Chaoxing:
                 self.courses = __temp
                 return True
             else:
-                self.logger.error("无法获取相关课程数据")
+                self.error("无法获取相关课程数据")
                 return False
         except:
             print(courses)
@@ -124,11 +126,13 @@ class Chaoxing:
 
     def get_mission(self, mission_id, course_id):
         url = 'https://mooc1-api.chaoxing.com/gas/knowledge'
+        #url = 'https://mooc1-api.chaoxing.com/gas/clazz'
         enc = get_enc_time()
         params = {
             'id': mission_id,
-            'courseid': course_id,
+            'courseid': course_id, #courseid
             'fields': 'id,parentnodeid,indexorder,label,layer,name,begintime,createtime,lastmodifytime,status,jobUnfinishedCount,clickcount,openlock,card.fields(id,knowledgeid,title,knowledgeTitile,description,cardorder).contentcard(all)',
+            # 'fields': 'id,bbsid,classscore,isstart,allowdownload,chatid,name,state,isfiled,visiblescore,begindate,coursesetting.fields(id,courseid,hiddencoursecover,coursefacecheck),course.fields(id,name,infocontent,objectid,app,bulletformat,mappingcourseid,imageurl,teacherfactor,jobcount,knowledge.fields(id,name,indexOrder,parentnodeid,status,layer,label,jobcount,begintime,endtime,attachment.fields(id,type,objectid,extension).type(video)))',
             'view': 'json',
             'token': "4faa8662c59590c6f43ae9fe5b002b42",
             '_time': enc[0],
@@ -137,7 +141,7 @@ class Chaoxing:
         return self.session.get(url, params=params).json()
 
     def get_knowledge(self, clazzid, courseid, knowledgeid, num):
-        url = 'https://mooc1-api.chaoxing.com/knowledge/cards'
+        url = 'https://mooc1.chaoxing.com/knowledge/cards'
         params = {
             'clazzid': clazzid,
             'courseid': courseid,
@@ -149,7 +153,7 @@ class Chaoxing:
         return self.session.get(url, params=params).text
 
     def get_attachments(self, text):
-        if res := re.search(r'window\.AttachmentSetting =({\"attachments\":.*})', text):
+        if res := re.search(r'window\.AttachmentSetting =({\"hiddenConfig\":false,\"attachments\":.*})', text):
             attachments = json.loads(res[1])
             self.logger.debug("---attachments info begin---")
             self.logger.debug(attachments)
