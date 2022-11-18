@@ -1,10 +1,10 @@
-# :computer: 超星学习通自动化完成任务点(命令行)
+# :computer: 超星学习通自动完成任务点(控制台命令)
 
-:muscle: 本项目的最终目的是通过开源消灭所谓的付费刷课平台，希望有能力的朋友都可以为这个项目提交代码，支持本项目和原项目的良性发展    
+# 本项目最终目的开源消灭付费刷课平台，希望有能力的朋友可以为这个项目提交代码，支持本项目和原项目的良性发展。
 
-:star: 觉得有帮助的朋友可以给个Star
+:star: 本人学业繁忙，尽力维护。
 
-## :point_up: 更新通知  
+## :point_up: 更新通知
 
 20221118更新：
 
@@ -38,7 +38,7 @@
 
 ### 源码运行(推荐)
 1. 提前准备： Python版本>=3.8
-2. `git clone --depth=1 https://github.com/cyear/chaoxing.git` 项目至本地
+2. `git clone https://github.com/cyear/chaoxing.git` 项目至本地
 3. `cd chaoxing`
 4. `pip3 install -r requirements.txt`
 5. `python3 main.py` 运行程序
