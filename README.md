@@ -14,14 +14,16 @@
 
 -格式(set.config):
     
-    {
+    [{
         'name': 'xxx',
         'url': 'xxx',
         'type': 'get/post',
         'data': {'xxx': '{title}'}
-    }
+    },
+    xxx(如上)
+    ]
 
-    #{title}为题目提交参数
+    #{title}为题目提交参数，支持多个题库
 
 20221118更新：
 
