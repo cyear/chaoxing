@@ -6,6 +6,12 @@
 
 ## :point_up: 更新通知
 
+2023xx更新:
+
+    # 1.全新的项目！虽然还是越写越烂，尽力维护
+
+    # https://github.com/cyear/ice-study
+
 202212xx更新:
 
     # 1.修复音乐任务403
